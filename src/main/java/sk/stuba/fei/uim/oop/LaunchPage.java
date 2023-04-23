@@ -61,8 +61,10 @@ public class LaunchPage extends JFrame implements ActionListener{
                         " can flow\nfrom the starting point S to the ending point F. To rotate a pipe ( L or I ), click on " +
                         "it by mouse and when\nyou find a correct connection/path, you will see color evaluation and your " +
                         "level will increase.\n\nUse the 'Size' list to choose the size of the game board.\nUse 'Check path' " +
-                        "button when you want to verify path.\nUse the 'Reset game' button to start a new game.\n\nIf you are " +
-                        "ready to play, press OK and have fun!!!",
+                        "button when you want to verify path.\nUse the 'Reset game' button to start a new game.\n\nPlease, if " +
+                        "you want to see the correctly color-evaluated pipes, disconnect the other pipes from the start\nso " +
+                        "that water does not leak. However, the path check always works.\n\nIf you are ready to play, press OK " +
+                        "and have fun!!!",
                 "Instructions - Game Plan",
                 JOptionPane.INFORMATION_MESSAGE);
 
@@ -91,13 +93,11 @@ public class LaunchPage extends JFrame implements ActionListener{
         cbSize.setFocusable(false);
         cbSize.requestFocus(false);
 
-        // Check button to check path clicked out by user
         btnCheckPath.setText("Check path");
         btnCheckPath.addActionListener(this);
         btnCheckPath.setFocusable(false);
         btnCheckPath.requestFocus(false);
 
-        // Reset button to reset game
         btnResetGame.setText("Reset game");
         btnResetGame.addActionListener(this);
         btnResetGame.setFocusable(false);
@@ -111,10 +111,8 @@ public class LaunchPage extends JFrame implements ActionListener{
         panelUserOptions.add(lblLevel);
         panelUserOptions.add(lblSize);
         panelUserOptions.add(cbSize);
-
         panelUserOptions.add(btnResetGame);
 
-        // init grid with buttons which contains pictures of pipes
         InitializeGameBoard(this.BoardSize);
 
         this.add(panelUserOptions);
@@ -185,10 +183,6 @@ public class LaunchPage extends JFrame implements ActionListener{
         panelGameBoard.revalidate();
     }
 
-    public MazeGenerator GetMazeObject()
-    {
-        return this.Maze;
-    }
     public void HandleSuccessfullySolvedMaze() throws IOException, ExceptionResourceRead {
         Level++;
         lblLevel.setText("Level: " + Level);
@@ -233,7 +227,9 @@ public class LaunchPage extends JFrame implements ActionListener{
         {
             try {
                 HandleSuccessfullySolvedMaze();
-            } catch (ExceptionResourceRead | IOException ex) {
+            }
+
+            catch (ExceptionResourceRead | IOException ex) {
                 throw new RuntimeException(ex);
             }
         }

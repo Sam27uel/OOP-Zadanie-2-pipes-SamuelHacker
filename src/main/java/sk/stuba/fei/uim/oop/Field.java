@@ -96,7 +96,6 @@ public class Field extends JButton implements ActionListener {
                 imageBuffer = ImageIO.read(Field.class.getResourceAsStream("/start.png"));
                 image = new ImageIcon(imageBuffer);
 
-
                 Direction.SetDirectionIndex(0);
 
                 IsStartField = true;
@@ -156,10 +155,6 @@ public class Field extends JButton implements ActionListener {
     {
         return Direction;
     }
-
-    // function which checks if there is connection between current field where we stand ( parameter - FieldDirection from )
-    // and another object - field where we should jump
-    // function is called upon object of class Field where object is field which will be checked if jump into this field is possible
     public boolean IsConnectionCorrect(Field from)
     {
         int [] direction = Direction.GetDirection();
@@ -173,72 +168,58 @@ public class Field extends JButton implements ActionListener {
         if (TypeOfPipe == 'L')
         {
 
-            // ┍      0,   0,    +1,    +1
             if (direction[0] == 0 && direction[1] == 0 && direction[2] == 1 && direction[3] == 1)
             {
-                // 0 - left, 1 - up , 2 - right, 3 - down
 
-                // if we are below of ┍
                 if (directionFrom[1] == -1 && rowFrom > this.row)
                 {
                     connectionCorrect = true;
                 }
 
-                // if we are next to ┍ on right side
                 if (directionFrom[0] == -1 && this.col < colFrom)
                 {
                     connectionCorrect = true;
                 }
 
             }
-            // ┑     -1,   0,     0,     1
+
             if (direction[0] == -1 && direction[1] == 0 && direction[2] == 0 && direction[3] == 1)
             {
-                // 0 - left, 1 - up , 2 - right, 3 - down
 
-                // if we are below of  ┑
                 if (directionFrom[1] == -1 && rowFrom > this.row)
                 {
                     connectionCorrect = true;
                 }
 
-                // if we are next to  ┑ on left side
                 if (directionFrom[2] == 1 && colFrom < this.col)
                 {
                     connectionCorrect = true;
                 }
 
             }
-            // ┙     -1,   -1,    0,    -0
+
             if (direction[0] == -1 && direction[1] == -1 && direction[2] == 0 && direction[3] == 0)
             {
-                // 0 - left, 1 - up , 2 - right, 3 - down
 
-                // if we are above of  ┙
                 if (directionFrom[3] == 1 && rowFrom < this.row)
                 {
                     connectionCorrect = true;
                 }
 
-                // if we are next to  ┙ on left side
                 if (directionFrom[2] == 1 && colFrom < this.col)
                 {
                     connectionCorrect = true;
                 }
 
             }
-            //┕	 0,    -1,    +1,   0
             if (direction[0] == 0 && direction[1] == -1 && direction[2] == 1 && direction[3] == 0)
             {
-                // 0 - left, 1 - up , 2 - right, 3 - down
 
-                // if we are above of  ┕
                 if (directionFrom[3] == 1 && rowFrom < this.row)
                 {
                     connectionCorrect = true;
                 }
 
-                // if we are next to  ┕ on right side
                 if (directionFrom[0] == -1 &&  this.col < colFrom)
                 {
                     connectionCorrect = true;
@@ -248,36 +229,29 @@ public class Field extends JButton implements ActionListener {
 
         if (TypeOfPipe == 'I')
         {
-            //   ─	 -1,    0,    +1,    0
+
             if (direction[0] == -1 && direction[1] == 0 && direction[2] == 1 && direction[3] == 0)
             {
-                // 0 - left, 1 - up , 2 - right, 3 - down
 
-                // if we are on left side next to ─
                 if (directionFrom[2] == 1 && colFrom < this.col)
                 {
                     connectionCorrect = true;
                 }
 
-                // if we are on right side next to ─
                 if (directionFrom[0] == -1 && this.col < colFrom)
                 {
                     connectionCorrect = true;
                 }
             }
 
-            //   │      0,    -1,    0,    +1
             if (direction[0] == 0 && direction[1] == -1 && direction[2] == 0 && direction[3] == 1)
             {
-                // 0 - left, 1 - up , 2 - right, 3 - down
 
-                // if we are above to │
                 if (directionFrom[3] == 1 && rowFrom < this.row)
                 {
                     connectionCorrect = true;
                 }
 
-                // if we are below to │
                 if (directionFrom[1] == -1 && rowFrom > this.row)
                 {
                     connectionCorrect = true;
@@ -293,30 +267,25 @@ public class Field extends JButton implements ActionListener {
 
         if (TypeOfPipe == 'K')
         {
-            // 0 - left, 1 - up , 2 - right, 3 - down
 
-            // if we are above to K
             if (direction[1] == - 1) {
                 if (directionFrom[3] == 1 && rowFrom < this.row) {
                     connectionCorrect = true;
                 }
             }
 
-            // if we are below to K
             if (direction[3] == 1) {
                 if (directionFrom[1] == -1 && rowFrom > this.row) {
                     connectionCorrect = true;
                 }
             }
 
-            // if we are on right side next to K
             if (direction[2] == 1) {
                 if (directionFrom[0] == -1 && colFrom > this.col) {
                     connectionCorrect = true;
                 }
             }
 
-            // if we are on left side next to K
             if (direction[0] == -1) {
                 if (directionFrom[2] == 1 && colFrom < this.col) {
                     connectionCorrect = true;

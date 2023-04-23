@@ -1,25 +1,6 @@
 package sk.stuba.fei.uim.oop;
 
-/*
- 0 - left, 1 - up , 2 - right, 3 - down
-
- L cases:        lef   up   right  down
-
- L cases:  ┍      0,   0,    +1,    1
-
- L cases:  ┑     -1,   0,     0,     1
-
- L cases:  ┙     -1,   -1,    0,    -0
-
- L cases:  ┕	 0,    -1,    +1,   -0
-
- I cases:  ─	 -1,    0,    +1,    0
-
- I cases:  │      0,    -1,    0,    +1
- */
-
 import java.util.ArrayList;
-
 public class FieldDirection
 {
     int indexInList;
@@ -44,29 +25,19 @@ public class FieldDirection
 
         if (type == 'L')
         {
-            // 0 - left, 1 - up , 2 - right, 3 - down
-
-            // L cases:  ┍               0, 0, +1, +1
             listDirections.add(new int[]{0, 0,  1,  1});
 
-            // L cases:  ┑               -1, 0,  0,  +1
             listDirections.add(new int[]{-1, 0,  0,  1});
 
-            // L cases:  ┙               -1,  -1,  0,  0
             listDirections.add(new int[]{-1,  -1,  0,  0});
 
-            // L cases:  ┕	             0,  -1, +1,  0
             listDirections.add(new int[]{0,  -1,  1,  0});
         }
 
         if (type == 'I')
         {
-            // 0 - left, 1 - up , 2 - right, 3 - down
+            listDirections.add(new int[]{0, -1, 0, 1});
 
-            // I cases:  │      0,    -1,    0,    +1
-            listDirections.add(new int[]{0, -1, 0, 1}); // default
-
-            // I cases:  ─	 -1,    0,    +1,    0
             listDirections.add(new int[]{-1, 0, 1, 0});
         }
 

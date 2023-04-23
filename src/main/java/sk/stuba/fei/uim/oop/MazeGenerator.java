@@ -1,5 +1,5 @@
 package sk.stuba.fei.uim.oop;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Random;
 public class MazeGenerator {
@@ -26,20 +26,17 @@ public class MazeGenerator {
         arrStartFieldIndices = GetStartOrEndField(true);
         arrEndFieldIndices = GetStartOrEndField(false);
 
-        // Set start field as visited
         maze2D[arrStartFieldIndices[0]][arrStartFieldIndices[1]].SetWasVisited(true);
 
-        // Begin generating in start
         GenerateMaze(arrStartFieldIndices[0], arrStartFieldIndices[1], arrEndFieldIndices[0], arrEndFieldIndices[1]);
         SetAllFieldsVisitedToFalse();
         GenerateMazeEndReached = false;
     }
 
     private void SetStartFinishFieldAndInitializeRest() throws ExceptionResourceRead {
-        // 0 - left, 1 - up , 2 - right, 3 - down
+
         int sideStart = rand.nextInt(4);
 
-        // oposite side of start is end
         int sideFinish = 0;
 
         if (sideStart == 0)
@@ -65,7 +62,7 @@ public class MazeGenerator {
             Field temp = null;
             int num = 0;
 
-            if (sideStart == 0 && temp == null) // left start
+            if (sideStart == 0 && temp == null)
             {
                 if (helpCounter == 0 && StartFieldPos == 0)
                 {
@@ -75,7 +72,7 @@ public class MazeGenerator {
                 {
                     temp = new Field('S', row, col);
                 }
-            } else if (sideStart == 2 && temp == null) // right start
+            } else if (sideStart == 2 && temp == null)
             {
                 if (helpCounter == (BoardSize - 1) && StartFieldPos == 0) {
                     temp = new Field('S', row, col);
@@ -83,20 +80,19 @@ public class MazeGenerator {
                 else if ((helpCounter + 1) % BoardSize == 0 && StartFieldPos == (helpCounter + 1) / BoardSize) {
                     temp = new Field('S', row, col);
                 }
-            } else if (sideStart == 1 && temp == null) // up start
+            } else if (sideStart == 1 && temp == null)
             {
                 if (helpCounter == StartFieldPos) {
 
                     temp = new Field('S', row, col);
                 }
-            } else if (sideStart == 3 && temp == null) // down start
+            } else if (sideStart == 3 && temp == null)
             {
-                // 0 - up, 1 - left, 2 - right
                 if (helpCounter >= ((BoardSize * BoardSize) - BoardSize) && helpCounter == ((BoardSize * BoardSize) - BoardSize + StartFieldPos))
                     temp = new Field('S', row, col);
             }
 
-            if (sideFinish == 0 && temp == null) // left end
+            if (sideFinish == 0 && temp == null)
             {
                 if (helpCounter == 0 && EndFieldPos == 0) {
                     temp = new Field('K', row, col);
@@ -106,7 +102,7 @@ public class MazeGenerator {
                     temp = new Field('K', row, col);
                 }
 
-            } else if (sideFinish == 2 && temp == null ) // right end
+            } else if (sideFinish == 2 && temp == null )
             {
                 if (helpCounter == (BoardSize - 1) && EndFieldPos == 0) {
                     temp = new Field('K', row, col);
@@ -114,18 +110,17 @@ public class MazeGenerator {
                 else if ((helpCounter + 1) % BoardSize == 0 && EndFieldPos == (helpCounter + 1) / BoardSize) {
                     temp = new Field('K', row, col);
                 }
-            } else if (sideFinish == 1 && temp == null) // up end
+            } else if (sideFinish == 1 && temp == null)
             {
                 if (helpCounter == EndFieldPos)
                 {
                     temp = new Field('K', row, col);
                 }
 
-            } else if (sideFinish == 3 && temp == null) // down end
+            } else if (sideFinish == 3 && temp == null)
             {
                 if (helpCounter >= ((BoardSize * BoardSize) - BoardSize) && helpCounter == ((BoardSize * BoardSize) - BoardSize + EndFieldPos))
                 {
-                    // 0 - up, 1 - left, 2 - right
                     temp = new Field('K', row, col);
                 }
             }
@@ -152,13 +147,12 @@ public class MazeGenerator {
     private void GenerateMaze(int iRow, int iCol, int iRowEnd, int iColEnd) throws ExceptionResourceRead {
         Field fieldTemp = null;
 
-        // while there is an unvisited neighbor
         while ((((iCol + 1 < BoardSize) && !maze2D[iRow][iCol + 1].GetWasVisited()) || ((iRow + 1 < BoardSize) && !maze2D[iRow + 1][iCol].GetWasVisited())
                 || ((iCol - 1  >= 0) && !maze2D[iRow][iCol - 1].GetWasVisited()) || ((iRow - 1  >= 0) && !maze2D[iRow - 1][iCol].GetWasVisited()))) {
 
             while (true) {
 
-                if (!GenerateMazeEndReached && iRow == iRowEnd && iCol == iColEnd) // Reached finished field, break current call of function
+                if (!GenerateMazeEndReached && iRow == iRowEnd && iCol == iColEnd)
                 {
                     maze2D[iRow][iCol].SetWasVisited(true);
                     GenerateMazeEndReached = true;
@@ -169,7 +163,7 @@ public class MazeGenerator {
                 int turnL= 1 + (int)(Math.random() * ((4 - 1) + 1));
                 int turnI = 1 + (int)(Math.random() * ((2 - 1) + 1));
 
-                if (r == 0 && (iCol + 1 < BoardSize) && !maze2D[iRow][iCol + 1].GetWasVisited()) { // RIGHT
+                if (r == 0 && (iCol + 1 < BoardSize) && !maze2D[iRow][iCol + 1].GetWasVisited()) {
 
                     if(!GenerateMazeEndReached) {
                         if (!maze2D[iRow][iCol + 1].IsFinishFieldFunc()) {
@@ -192,7 +186,7 @@ public class MazeGenerator {
                     GenerateMaze(iRow, iCol + 1, iRowEnd, iColEnd);
                     break;
                 }
-                else if (r == 1 && (iRow + 1 < BoardSize) && !maze2D[iRow + 1][iCol].GetWasVisited()) { // DOWN
+                else if (r == 1 && (iRow + 1 < BoardSize) && !maze2D[iRow + 1][iCol].GetWasVisited()) {
 
                     if(!GenerateMazeEndReached) {
                         if (!maze2D[iRow + 1][iCol].IsFinishFieldFunc()) {
@@ -216,7 +210,7 @@ public class MazeGenerator {
 
                     break;
                 }
-                else if (r == 2 && (iCol - 1 >= 0) && !maze2D[iRow][iCol - 1].GetWasVisited()) { // LEFT
+                else if (r == 2 && (iCol - 1 >= 0) && !maze2D[iRow][iCol - 1].GetWasVisited()) {
 
                     if(!GenerateMazeEndReached) {
                         if (!maze2D[iRow][iCol - 1].IsFinishFieldFunc()) {
@@ -240,7 +234,7 @@ public class MazeGenerator {
 
                     break;
                 }
-                else if (r == 3 && (iRow - 1 >= 0) && !maze2D[iRow - 1][iCol].GetWasVisited()) { // UP
+                else if (r == 3 && (iRow - 1 >= 0) && !maze2D[iRow - 1][iCol].GetWasVisited()) {
 
                     if(!GenerateMazeEndReached) {
                         if (!maze2D[iRow - 1][iCol].IsFinishFieldFunc()) {
@@ -324,7 +318,6 @@ public class MazeGenerator {
 
     private boolean SolveMaze(int iRow, int iCol, int iRowEnd, int iColEnd)
     {
-        // while there is an unvisited neighbor
         while ( ( !GenerateMazeEndReached) &&
                 (((iCol + 1 < BoardSize) && !maze2D[iRow][iCol + 1].GetWasVisited() && maze2D[iRow][iCol + 1].IsConnectionCorrect(maze2D[iRow][iCol])) ||
                 ((iRow + 1 < BoardSize) && !maze2D[iRow + 1][iCol].GetWasVisited() && maze2D[iRow + 1][iCol].IsConnectionCorrect(maze2D[iRow][iCol]) ) ||
@@ -333,13 +326,13 @@ public class MazeGenerator {
         {
             while (true) {
 
-                if (!GenerateMazeEndReached && iRow == iRowEnd && iCol == iColEnd) // Reached finished field, break solving)
+                if (!GenerateMazeEndReached && iRow == iRowEnd && iCol == iColEnd)
                 {
                     GenerateMazeEndReached = true;
                     break;
                 }
 
-                if ((iCol + 1 < BoardSize) && !maze2D[iRow][iCol + 1].GetWasVisited() && maze2D[iRow][iCol + 1].IsConnectionCorrect(maze2D[iRow][iCol])) { // RIGHT
+                if ((iCol + 1 < BoardSize) && !maze2D[iRow][iCol + 1].GetWasVisited() && maze2D[iRow][iCol + 1].IsConnectionCorrect(maze2D[iRow][iCol])) {
                     maze2D[iRow][iCol].SetWasVisited(true);
                     maze2D[iRow][iCol + 1].SetWasVisited(true);
                     listPathToFinish.add(maze2D[iRow][iCol + 1]);
@@ -354,7 +347,7 @@ public class MazeGenerator {
 
                     break;
                 }
-                else if ((iRow + 1 < BoardSize) && !maze2D[iRow + 1][iCol].GetWasVisited() && maze2D[iRow + 1][iCol].IsConnectionCorrect(maze2D[iRow][iCol])) { // DOWN
+                else if ((iRow + 1 < BoardSize) && !maze2D[iRow + 1][iCol].GetWasVisited() && maze2D[iRow + 1][iCol].IsConnectionCorrect(maze2D[iRow][iCol])) {
                     maze2D[iRow][iCol].SetWasVisited(true);
                     maze2D[iRow + 1][iCol].SetWasVisited(true);
                     listPathToFinish.add(maze2D[iRow + 1][iCol]);
@@ -368,7 +361,7 @@ public class MazeGenerator {
                     SolveMaze(iRow + 1, iCol, iRowEnd, iColEnd);
                     break;
                 }
-                else if ((iCol - 1  >= 0) && !maze2D[iRow][iCol - 1].GetWasVisited() && maze2D[iRow][iCol - 1].IsConnectionCorrect(maze2D[iRow][iCol])) { // LEFT
+                else if ((iCol - 1  >= 0) && !maze2D[iRow][iCol - 1].GetWasVisited() && maze2D[iRow][iCol - 1].IsConnectionCorrect(maze2D[iRow][iCol])) {
                     maze2D[iRow][iCol - 1].SetWasVisited(true);
                     maze2D[iRow][iCol].SetWasVisited(true);
                     listPathToFinish.add(maze2D[iRow][iCol - 1]);
@@ -382,7 +375,7 @@ public class MazeGenerator {
                     SolveMaze(iRow, iCol - 1, iRowEnd, iColEnd);
                     break;
                 }
-                else if ((iRow - 1  >= 0) && !maze2D[iRow - 1][iCol].GetWasVisited() && maze2D[iRow - 1][iCol].IsConnectionCorrect(maze2D[iRow][iCol])) { // UP
+                else if ((iRow - 1  >= 0) && !maze2D[iRow - 1][iCol].GetWasVisited() && maze2D[iRow - 1][iCol].IsConnectionCorrect(maze2D[iRow][iCol])) {
                     maze2D[iRow][iCol].SetWasVisited(true);
                     maze2D[iRow - 1][iCol].SetWasVisited(true);
                     listPathToFinish.add(maze2D[iRow - 1][iCol]);
